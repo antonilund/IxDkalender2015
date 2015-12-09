@@ -1,4 +1,6 @@
+boolean doEnableAllHatches = false;
 boolean doAttractionMode = false;
+int attractionModeDelay = 10 * 60 * 1000; // 10min.
 
 PImage sky;
 
@@ -102,13 +104,11 @@ void setup()
   
   //christmasSound = new SoundFile(this, "firstnoel.mp3");
   //christmasSound.play();
-  
-  
-  if(doAttractionMode)
+  if (doAttractionMode)
   {
-     d = 1;
+     //d = 1;
+     attractionTimer = millis();
   }
-   d=24;
 }
 
 
@@ -135,24 +135,33 @@ if(d>20) //Detta är för lucka 20. Den måste ligga här för att ritas i bakgr
     day23();
   }
 
-  // Attraction mode - enable a day every 10min.
+  // Attraction mode - re-open hatch.
   if (doAttractionMode)
   {
-    if ((millis() > (attractionTimer + (10 * 60 * 1000))) && (d < 24))
+    if(millis() > (attractionTimer + attractionModeDelay))
     {
       // Update attraction timer.
       attractionTimer = millis();
-
-      // Update day.
-      d++;
-      println("day: " + d);
+      
+      // Close hatch.
+      hatchOpen[d - 1] = false;
+      
+      /*if(d < 24)
+      {
+        d++;
+      }
+      else
+      {
+        d = 1;
+      }*/
     }
   }
 
+  // Check if user is allowed to open hatches.
   for (int i = 0; i < 24; i++)
   {
     Date(i + 1); //Lägg ALLA luckor inom denna
-    if (open == true) {
+    if((open == true) || doEnableAllHatches) {
       canOpenHatch[i] = true;
     }
   }
@@ -308,7 +317,7 @@ boolean doHatch(int hatchNumber, int x, int y, int _width, int _height)
   noFill();
   rect(x, y, _width, _height);
   noStroke();
-  boolean openHatch = canOpenHatch[hatchNumber - 1] && (doAttractionMode || (mouseIsClicked && grid(x, y, _width, _height))); 
+  boolean openHatch = canOpenHatch[hatchNumber - 1] && ((doAttractionMode && (hatchNumber <= d)) || (mouseIsClicked && grid(x, y, _width, _height))); 
   if (openHatch)
   {
     createSparkelsAndMagic(x + (_width / 2), y + (_height / 2), 50);
