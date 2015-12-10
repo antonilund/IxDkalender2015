@@ -1,5 +1,5 @@
 boolean doEnableAllHatches = false;
-boolean doAttractionMode = false;
+boolean doAttractionMode = true;
 int attractionModeDelay = 10 * 60 * 1000; // 10min.
 
 PImage sky;
@@ -78,8 +78,8 @@ boolean[] hatchOpen = {
 
 void setup()
 {
-  //size(1920, 1080, P2D);
-  fullScreen(P2D); //For fullscreen on second screeen
+  size(1920, 1080, P2D);
+  //fullScreen(P2D); //For fullscreen on second screeen
   //size(1080, 720, P2D);
   sky = loadImage("starfield.jpg");
   skier = loadImage("skid-tomte.png");
