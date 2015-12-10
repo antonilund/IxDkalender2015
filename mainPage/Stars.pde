@@ -1,6 +1,6 @@
 void _createStars()
 {
-  fill(255);
+  fill(255, 200);
   
   ellipse(100, 50, _starSize, _starSize );
   ellipse(700, 10, _starSize, _starSize );

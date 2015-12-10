@@ -1,3 +1,5 @@
+//Luciatåg
+
 PImage lucia;
 int xPoslucia = 850;
 int yPoslucia = 1080;

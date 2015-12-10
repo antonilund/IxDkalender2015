@@ -1,5 +1,6 @@
-void day14(){
   // Ryker ut skorstenen.
+
+void day14(){
   if ( smoke1 == true) {
    
     smoke(70);

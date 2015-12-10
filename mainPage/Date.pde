@@ -1,7 +1,7 @@
 
 int d = day();    // 1 - 31
 int mo = month();  // 1 - 12
-int y = year(); // 2015
+int ye = year(); // 2015
 int today;
 
 void Date(int luckDate){

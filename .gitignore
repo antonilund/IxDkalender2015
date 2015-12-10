@@ -1,3 +1,10 @@
 mainPage/data/Thumbs.db
 *.db
 *.db
+<<<<<<< HEAD
+=======
+mainPage/data/Thumbs.db
+*.db
+mainPage/mainPage.pde
+>>>>>>> refs/remotes/origin/MyFork
+*.db

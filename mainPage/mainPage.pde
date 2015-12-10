@@ -1,4 +1,8 @@
+boolean doEnableAllHatches = false;
 boolean doAttractionMode = false;
+int attractionModeDelay = 10 * 60 * 1000; // 10min.
+
+PImage sky;
 
 PImage backGroundImage;
 int rainColor = 255;
@@ -74,11 +78,14 @@ boolean[] hatchOpen = {
 
 void setup()
 {
-  size(1920, 1080, P2D);
+
+ size(1920, 1080, P2D);
+ // size(1080, 720, P2D);
   skier = loadImage("skid-tomte.png");
   backGroundImage = loadImage("background.png");
   santa = loadImage("santa.png");
   moon =   loadImage("moon.png");
+  sky = loadImage("starfield.jpg");
   halfMoon = loadImage("halfMoon.png");
   snowman1 = loadImage("snowman1.2.png");
   snowman2 = loadImage("snowman2.1.png");
@@ -97,13 +104,11 @@ void setup()
   
   //christmasSound = new SoundFile(this, "firstnoel.mp3");
   //christmasSound.play();
-  
-  
-  if(doAttractionMode)
+  if (doAttractionMode)
   {
-     d = 1;
+     //d = 1;
+     attractionTimer = millis();
   }
-   d=24;
 }
 
 
@@ -111,6 +116,18 @@ void draw()
 {
   timer = millis();
   m2 = millis();
+ 
+if(d>20) //Detta är för lucka 20. Den måste ligga här för att ritas i bakgrunden.
+{
+    day20();
+    if(d>5)
+{
+    tint(255, 200);
+   image(sky, 0, 0, width, 600);
+    noTint();
+}
+     day20();
+}
   image(backGroundImage, 0, 0, width, height);
   day3();
   day11();
@@ -118,32 +135,38 @@ void draw()
     day23();
   }
 
-  // Attraction mode - enable a day every 10min.
+  // Attraction mode - re-open hatch.
   if (doAttractionMode)
   {
-    if ((millis() > (attractionTimer + (10 * 60 * 1000))) && (d < 24))
+    if(millis() > (attractionTimer + attractionModeDelay))
     {
       // Update attraction timer.
       attractionTimer = millis();
-
-      // Update day.
-      d++;
-      println("day: " + d);
+      
+      // Close hatch.
+      hatchOpen[d - 1] = false;
+      
+      /*if(d < 24)
+      {
+        d++;
+      }
+      else
+      {
+        d = 1;
+      }*/
     }
   }
 
+  // Check if user is allowed to open hatches.
   for (int i = 0; i < 24; i++)
   {
     Date(i + 1); //Lägg ALLA luckor inom denna
-    if (open == true) {
+    if((open == true) || doEnableAllHatches) {
       canOpenHatch[i] = true;
     }
   }
-
-  tint(255, 150);
-  noTint();
+  
   noStroke();
-
 
   // Stjärnor
   _createStars();
@@ -183,7 +206,6 @@ void draw()
   day17();
   day18();
   day19();
-  day20();
   day21();
   day22();
 
@@ -275,7 +297,6 @@ void draw()
   updateSparkelsAndMagic();
   drawSparkelsAndMagic();
 
-  smooth();
 
   // Reset mouse.
   mouseIsClicked = false;
@@ -296,7 +317,7 @@ boolean doHatch(int hatchNumber, int x, int y, int _width, int _height)
   noFill();
   rect(x, y, _width, _height);
   noStroke();
-  boolean openHatch = canOpenHatch[hatchNumber - 1] && (doAttractionMode || (mouseIsClicked && grid(x, y, _width, _height))); 
+  boolean openHatch = canOpenHatch[hatchNumber - 1] && ((doAttractionMode && (hatchNumber <= d)) || (mouseIsClicked && grid(x, y, _width, _height))); 
   if (openHatch)
   {
     createSparkelsAndMagic(x + (_width / 2), y + (_height / 2), 50);

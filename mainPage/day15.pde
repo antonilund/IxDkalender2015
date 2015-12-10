@@ -1,6 +1,8 @@
+//dekorera skorstenen
+
+
 PImage day15Img;
 boolean isDay15Init = false;
-
 void initDay15()
 {
   day15Img = loadImage("chimneydecoration.png");
