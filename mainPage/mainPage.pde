@@ -79,8 +79,8 @@ boolean[] hatchOpen = {
 void setup()
 {
   //size(1920, 1080, P2D);
-  fullScreen(P2D, 2); //For fullscreen on second screeen
-  // size(1080, 720, P2D);
+  fullScreen(P2D); //For fullscreen on second screeen
+  //size(1080, 720, P2D);
   sky = loadImage("starfield.jpg");
   skier = loadImage("skid-tomte.png");
   backGroundImage = loadImage("background.png");
@@ -102,9 +102,9 @@ void setup()
   snow = loadImage("snow.png");
   initSparkelsAndMagic();
 
- // christmasSound = new SoundFile(this, "firstnoel.mp3");
+  // christmasSound = new SoundFile(this, "firstnoel.mp3");
   //christmasSound.play();
-  
+
   if (doAttractionMode)
   {
     //d = 1;
@@ -118,19 +118,18 @@ void draw()
 
   timer = millis();
   m2 = millis();
+  fill(0);
+  rect(0, 0, width, height);
+  noFill();
 
-  if (isHatchOpen(5) && isHatchOpen(6) == false) //Detta är för lucka 5. Den måste ligga här för att ritas i bakgrunden.
-  {  
-       day20();
-    tint(255, 15);
- 
-  }
-    else{ 
-        noTint();
-    }
-  image(sky, 0, 0, width, 800);
-          noTint();
+  tint(255, 215);
 
+  if (isHatchOpen(20)) //Detta är för lucka 20. Den måste ligga här för att ritas i bakgrunden.
+  {
+    image(sky, 0, 0, width, 800);
+    day20();
+  } 
+  noTint();
   image(backGroundImage, 0, 0, width, height);
   day3();
   day11();

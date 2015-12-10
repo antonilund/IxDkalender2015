@@ -7,7 +7,7 @@ float trans = 0;
 
 //en stjärna faller
 void day20() {
-  roofy = false;
+  snowB = false;
 
   trans += 0.5;
   float d = dist(x, y, endX, endY);
@@ -17,5 +17,7 @@ void day20() {
   }
     noStroke();
     fill(255);
-    ellipse(x, y, 17, 15);
+    image(sparklesAndMagicImg, x, y, 25, 25);
+    //ellipse(x, y, 17, 15); 
+    
 }
