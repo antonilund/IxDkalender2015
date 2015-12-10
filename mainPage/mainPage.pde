@@ -10,8 +10,8 @@ int numOfDrops = 100;
 Snow[] _snow;
 boolean snowMore = false;
 
-import processing.sound.*;
-SoundFile christmasSound;
+//import processing.sound.*;
+//SoundFile christmasSound;
 
 //Door open variables
 int elThick = 5;
@@ -78,14 +78,14 @@ boolean[] hatchOpen = {
 
 void setup()
 {
-
- size(1920, 1080, P2D);
- // size(1080, 720, P2D);
+  //size(1920, 1080, P2D);
+  fullScreen(P2D, 2); //For fullscreen on second screeen
+  // size(1080, 720, P2D);
+  sky = loadImage("starfield.jpg");
   skier = loadImage("skid-tomte.png");
   backGroundImage = loadImage("background.png");
   santa = loadImage("santa.png");
   moon =   loadImage("moon.png");
-  sky = loadImage("starfield.jpg");
   halfMoon = loadImage("halfMoon.png");
   snowman1 = loadImage("snowman1.2.png");
   snowman2 = loadImage("snowman2.1.png");
@@ -101,33 +101,36 @@ void setup()
   renar = loadImage("renar.png");
   snow = loadImage("snow.png");
   initSparkelsAndMagic();
-  
-  //christmasSound = new SoundFile(this, "firstnoel.mp3");
+
+ // christmasSound = new SoundFile(this, "firstnoel.mp3");
   //christmasSound.play();
+  
   if (doAttractionMode)
   {
-     //d = 1;
-     attractionTimer = millis();
+    //d = 1;
+    attractionTimer = millis();
   }
 }
 
 
 void draw()
 {
+
   timer = millis();
   m2 = millis();
+
+  if (isHatchOpen(5) && isHatchOpen(6) == false) //Detta är för lucka 5. Den måste ligga här för att ritas i bakgrunden.
+  {  
+       day20();
+    tint(255, 15);
  
-if(d>20) //Detta är för lucka 20. Den måste ligga här för att ritas i bakgrunden.
-{
-    day20();
-    if(d>5)
-{
-    tint(255, 200);
-   image(sky, 0, 0, width, 600);
-    noTint();
-}
-     day20();
-}
+  }
+    else{ 
+        noTint();
+    }
+  image(sky, 0, 0, width, 800);
+          noTint();
+
   image(backGroundImage, 0, 0, width, height);
   day3();
   day11();
@@ -138,22 +141,22 @@ if(d>20) //Detta är för lucka 20. Den måste ligga här för att ritas i bakgr
   // Attraction mode - re-open hatch.
   if (doAttractionMode)
   {
-    if(millis() > (attractionTimer + attractionModeDelay))
+    if (millis() > (attractionTimer + attractionModeDelay))
     {
       // Update attraction timer.
       attractionTimer = millis();
-      
+
       // Close hatch.
       hatchOpen[d - 1] = false;
-      
+
       /*if(d < 24)
-      {
-        d++;
-      }
-      else
-      {
-        d = 1;
-      }*/
+       {
+       d++;
+       }
+       else
+       {
+       d = 1;
+       }*/
     }
   }
 
@@ -161,11 +164,11 @@ if(d>20) //Detta är för lucka 20. Den måste ligga här för att ritas i bakgr
   for (int i = 0; i < 24; i++)
   {
     Date(i + 1); //Lägg ALLA luckor inom denna
-    if((open == true) || doEnableAllHatches) {
+    if ((open == true) || doEnableAllHatches) {
       canOpenHatch[i] = true;
     }
   }
-  
+
   noStroke();
 
   // Stjärnor
@@ -312,10 +315,12 @@ boolean doHatch(int hatchNumber, int x, int y, int _width, int _height)
   }
 
   fill(255);
-  text(hatchNumber, x + (_width / 2), y + (_height / 2));
-  stroke(255);
+  textSize(20);
+  text(hatchNumber, x + (_width / 2-10), y + (_height / 2 + 10));
+  strokeWeight(4);
+  stroke(255, 110);
   noFill();
-  rect(x, y, _width, _height);
+  rect(x, y, _width, _height, 5);
   noStroke();
   boolean openHatch = canOpenHatch[hatchNumber - 1] && ((doAttractionMode && (hatchNumber <= d)) || (mouseIsClicked && grid(x, y, _width, _height))); 
   if (openHatch)
