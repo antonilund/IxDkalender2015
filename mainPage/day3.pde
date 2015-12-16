@@ -2,8 +2,8 @@ int ipa = 1;
 //dag 3
 void day3()
 {
-  int moonX=100;
-  int moonY=100;
+  int moonX=130;
+  int moonY=200;
 
   if (isHatchOpen(3)) {
     if (ipa <256 && moonX<300 && moonY>7) {
