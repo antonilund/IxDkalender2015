@@ -5,8 +5,7 @@ int ye = year(); // 2015
 int today;
 
 void Date(int luckDate){
-//luckDate=19;
-//luckaNr;
+
 today=d;
  //om  datumet är idag eller mer, frigör lucka
  if(mo == 12 && luckDate <= today){

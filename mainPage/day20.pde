@@ -1,14 +1,14 @@
-float x = 20.0;       // Initial x-coordinate
-float y = 10.0;       // Initial y-coordinate
-float endX = 1000.0;    // Destination x-coordinate
-float endY = 600.0;    // Destination y-coordinate
+float x = 20.0;       
+float y = 10.0;       
+float endX = 1000.0;    
+float endY = 600.0;    
 float easing = 0.01;  // Size of each step along the path
 float trans = 0;
 
 //en stjärna faller
 void day20() {
+  snowB = false;
 
-  fill(255);
   trans += 0.5;
   float d = dist(x, y, endX, endY);
   if (d > 1.0) {
@@ -16,8 +16,8 @@ void day20() {
     y += (endY - y) * easing;
   }
     noStroke();
-    fill(0, 5);
-    rect(0, 0, width, height);
     fill(255);
-    ellipse(x, y, 17, 15);
+    image(sparklesAndMagicImg, x, y, 25, 25);
+    //ellipse(x, y, 17, 15); 
+    
 }

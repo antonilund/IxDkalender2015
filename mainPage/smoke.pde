@@ -31,6 +31,7 @@ void smoke(int time) {
     op = op + 0.5; 
     delay = m2 + time;
   }
+  
   fill(120, 120, 120, 255-op);
   ellipse(1035, yPos, startWidth, startHeight);
   if (op==255) {
